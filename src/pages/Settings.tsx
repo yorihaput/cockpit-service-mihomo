@@ -86,6 +86,17 @@ export const Settings = () => {
                         />
                     </FormGroup>
 
+                    <FormGroup label="Mihomo Path" fieldId="mihomoPath" isRequired>
+                        <TextInput
+                            isRequired
+                            type="text"
+                            id="mihomoPath"
+                            name="mihomoPath"
+                            value={config.mihomoPath}
+                            onChange={(e, value) => handleChange(value, 'mihomoPath')}
+                        />
+                    </FormGroup>
+
                     <FormGroup label="Service Name" fieldId="serviceName" isRequired>
                         <TextInput
                             isRequired

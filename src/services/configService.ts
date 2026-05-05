@@ -5,6 +5,7 @@ export interface PluginConfig {
     serviceName: string;
     /** URL template – supports {hostname} placeholder, e.g. "http://{hostname}:3000" */
     webUIUrl: string;
+    mihomoPath: string;
 }
 
 // These are injected by build.js from .env
@@ -22,7 +23,8 @@ declare const process: {
 export const DEFAULT_CONFIG: PluginConfig = {
     configFilePath: process.env.DEFAULT_CONFIG_PATH,
     serviceName: process.env.DEFAULT_SERVICE_NAME,
-    webUIUrl: process.env.DEFAULT_WEB_UI_URL
+    webUIUrl: process.env.DEFAULT_WEB_UI_URL,
+    mihomoPath: process.env.DEFAULT_CONFIG_PATH.substring(0, process.env.DEFAULT_CONFIG_PATH.lastIndexOf('/')) || '/etc/mihomo'
 };
 
 const CONFIG_PATH = process.env.CONFIG_STORAGE_PATH;
@@ -54,6 +56,7 @@ export const loadConfig = async (): Promise<PluginConfig> => {
             configFilePath: parsed.configFilePath ?? DEFAULT_CONFIG.configFilePath,
             serviceName: parsed.serviceName ?? DEFAULT_CONFIG.serviceName,
             webUIUrl: parsed.webUIUrl ?? DEFAULT_CONFIG.webUIUrl,
+            mihomoPath: parsed.mihomoPath ?? DEFAULT_CONFIG.mihomoPath,
         };
     } catch (err: any) {
         if (err?.problem === "access-denied" || err?.problem === "not-found") {
@@ -88,6 +91,9 @@ export const validateConfig = (config: PluginConfig): void => {
     }
     if (!config.webUIUrl || config.webUIUrl.trim() === '') {
         throw new ConfigError("Web UI URL cannot be empty.");
+    }
+    if (!config.mihomoPath || config.mihomoPath.trim() === '') {
+        throw new ConfigError("Mihomo Path cannot be empty.");
     }
 };
 

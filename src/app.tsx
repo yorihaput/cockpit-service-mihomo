@@ -10,6 +10,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Settings } from './pages/Settings';
 import { Logs } from './pages/Logs';
 import { ConfigEditor } from './pages/ConfigEditor';
+import { ConfigExplorer } from './pages/ConfigExplorer';
 
 import './app.scss';
 
@@ -35,7 +36,10 @@ export const Application = () => {
                 <Tab eventKey={2} title={<TabTitleText>Config Editor</TabTitleText>}>
                     <ConfigEditor />
                 </Tab>
-                <Tab eventKey={3} title={<TabTitleText>Settings</TabTitleText>}>
+                <Tab eventKey={3} title={<TabTitleText>Config Explorer</TabTitleText>}>
+                    <ConfigExplorer />
+                </Tab>
+                <Tab eventKey={4} title={<TabTitleText>Settings</TabTitleText>}>
                     <Settings />
                 </Tab>
             </Tabs>
