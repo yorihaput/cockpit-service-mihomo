@@ -7,7 +7,8 @@ This project is a Cockpit plugin designed to manage the Mihomo systemd service. 
 - **Dashboard**: Monitor Mihomo service status (Active/Inactive) with Start/Stop/Reload controls.
 - **Logs**: Integrated journalctl log viewer for Mihomo.
 - **Config Editor**: Direct text editor for Mihomo configuration file (`config.yaml`) with "Apply Changes" (Save & Reload) support.
-- **Settings**: Persistent configuration for Service Name, Config Path, and Web UI URL (with `{hostname}` support).
+- **Config Explorer**: Embedded `cockpit-files` instance specifically targeting the `MIHOMO_PATH`. *Requires the `cockpit-files` plugin to be installed*.
+- **Settings**: Persistent configuration for Service Name, Config Path, Mihomo Path, and Web UI URL (with `{hostname}` support).
 
 ---
 
@@ -41,6 +42,7 @@ APP_DESCRIPTION="Cockpit plugin for managing Mihomo service"
 # Default Service Settings
 DEFAULT_SERVICE_NAME=mihomo
 DEFAULT_CONFIG_PATH=/etc/mihomo/config.yaml
+MIHOMO_PATH=/etc/mihomo
 DEFAULT_WEB_UI_URL=http://{hostname}:9090
 
 # Plugin Settings
@@ -86,7 +88,7 @@ make ENV=mihomo
 ## Technical Details
 
 ### Project Structure
-- `src/pages/`: Page components (Dashboard, Logs, Config Editor, Settings).
+- `src/pages/`: Page components (Dashboard, Logs, Config Editor, Config Explorer, Settings).
 - `src/services/`: Logic for systemd and file system interaction.
 - `src/manifest.json`: Plugin metadata (Label is auto-updated from `.env` during build).
 - `build.js`: Build script handling `.env` injection and asset management.
